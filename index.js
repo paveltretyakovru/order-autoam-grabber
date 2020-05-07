@@ -11,7 +11,7 @@ const urlToEngVersion = 'https://auto.am/lang/en';
 
   await goToPage(page, urlToEngVersion);
   
-  let counter = 110;
+  let counter = 150;
   const maxPages = 201;
   
   while (counter < maxPages) {
@@ -19,7 +19,7 @@ const urlToEngVersion = 'https://auto.am/lang/en';
 
     const pageAds = await getListOfPageAds(page);
 
-    console.log(`====================> PAGE: ${counter} <====================`);
+    console.log(`====================> PAGE: ${counter}, <====================`);
 
     if (Array.isArray(pageAds)) {
       for (let i = 0; i < pageAds.length; i += 1) {
@@ -74,7 +74,7 @@ async function getListOfPageAds(page) {
             year,
             brand,
             price,
-          }
+          };
         })
       ));
 
@@ -89,7 +89,7 @@ async function getListOfPageAds(page) {
 async function goToListPage(puppeteerPage, pageNumber) {
   return new Promise(async (resovle, reject) => {
     try {
-      const url = `https://auto.am/search/passenger-cars?q={"category":"1","page":"${pageNumber}","sort":"latest","layout":"complist","user":{"dealer":"0","id":""},"make":["246","386","276","31","156","21","26","46","56"],"year":{"gt":"2000","lt":"2019"},"usdprice":{"gt":"1000","lt":"100000"},"custcleared":"1","mileage":{"gt":"10","lt":"1000000"},"geo":["12"]}`;
+      const url = `https://auto.am/search/passenger-cars?q={"category":"1","page":"${pageNumber},","sort":"latest","layout":"complist","user":{"dealer":"0","id":""},,"make":["246","386","276","31","156","21","26","46","56"],"year":{"gt":"2000","lt":"2019"},,"usdprice":{"gt":"1000","lt":"100000"},,"custcleared":"1","mileage":{"gt":"10","lt":"1000000"},,"geo":["12"]},`;
       await goToPage(puppeteerPage, url);
 
       resovle();
@@ -103,11 +103,11 @@ async function goToListPage(puppeteerPage, pageNumber) {
 async function goToPage(puppeteerPage, url) {
   return new Promise(async (resovle, reject) => {
     try {
-      console.log(`Открываю страницу: ${url} ...`);
+      console.log(`Открываю страницу: ${url}, ...`);
       await puppeteerPage.goto(url, { waitUntil: 'networkidle2' });
       resovle();
     } catch (error) {
-      console.error(`Ошибка открытия страницы ${url}`, error.message);
+      console.error(`Ошибка открытия страницы ${url},`, error.message);
       reject(error);
     }
   });
